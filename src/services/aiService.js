@@ -7,7 +7,7 @@ export const generateResumeFromStory = async (story) => {
   if (!apiKey) throw new Error("API Key missing");
   
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }, { apiVersion: "v1" });
   
   const prompt = `
 You are an expert resume writer and career coach. 
@@ -51,7 +51,7 @@ export const analyzeResumeForAts = async (resumeText, jobDescription = "") => {
   if (!apiKey) throw new Error("API Key missing");
   
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }, { apiVersion: "v1" });
   
   const prompt = `
 You are a strict ATS (Applicant Tracking System) algorithm. Evaluate this resume context.
@@ -84,7 +84,7 @@ export const enhanceBullet = async (bullet) => {
   const apiKey = getApiKey();
   if (!apiKey) throw new Error("API Key missing");
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }, { apiVersion: "v1" });
   
   const prompt = `Rewrite this resume bullet point to be extremely professional, high-impact, and metrics-driven (if applicable). Use strong action verbs. Return ONLY the edited bullet point text, nothing else.\n\nOriginal: ${bullet}`;
   const result = await model.generateContent(prompt);
@@ -95,7 +95,7 @@ export const roastResume = async (resumeText) => {
   const apiKey = getApiKey();
   if (!apiKey) throw new Error("API Key missing");
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }, { apiVersion: "v1" });
   
   const prompt = `You are a brutally honest, hilarious, cynical tech recruiter. Roast this resume. Be funny, ruthless, but insightful. Give it to them straight. Keep it under 150 words.\n\nResume Context:\n${resumeText.substring(0, 3000)}`;
   const result = await model.generateContent(prompt);
